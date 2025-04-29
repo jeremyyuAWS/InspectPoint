@@ -8,18 +8,17 @@ interface LeadFunnelProps {
 const LeadFunnel: React.FC<LeadFunnelProps> = ({ leads }) => {
   // Calculate counts for each stage
   const counts = {
-    new: leads.filter(lead => lead.status === 'new').length,
-    contacted: leads.filter(lead => lead.status === 'contacted').length,
-    qualified: leads.filter(lead => lead.status === 'qualified').length,
-    opportunity: leads.filter(lead => lead.status === 'opportunity').length,
-    customer: leads.filter(lead => lead.status === 'customer').length
+    new: leads.filter((lead: Lead) => lead.status === 'new').length,
+    contacted: leads.filter((lead: Lead) => lead.status === 'contacted').length,
+    qualified: leads.filter((lead: Lead) => lead.status === 'qualified').length,
+    opportunity: leads.filter((lead: Lead) => lead.status === 'opportunity').length,
+    customer: leads.filter((lead: Lead) => lead.status === 'customer').length
   };
   
   // Calculate percentages for visual representation
   const total = leads.length;
   const percentages = {
     new: (counts.new / total) * 100,
-    )
     contacted: (counts.contacted / total) * 100,
     qualified: (counts.qualified / total) * 100,
     opportunity: (counts.opportunity / total) * 100,
