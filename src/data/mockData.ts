@@ -93,6 +93,81 @@ const constructionEquipment = [
   }
 ];
 
+// Demo conversation templates
+const demoConversations = [
+  {
+    topic: 'Equipment Financing Overview',
+    messages: [
+      {
+        sender: 'user',
+        content: "I'm interested in financing options for construction equipment. Can you tell me more about what you offer?"
+      },
+      {
+        sender: 'agent',
+        content: "I'd be happy to help you explore our construction equipment financing options. We offer flexible terms and competitive rates for a wide range of equipment. What type of equipment are you looking to finance?"
+      },
+      {
+        sender: 'user',
+        content: "We're primarily interested in earth moving equipment, specifically excavators and bulldozers."
+      },
+      {
+        sender: 'agent',
+        content: "Great choice! We have excellent options for earth moving equipment. For example, our Caterpillar 320 Hydraulic Excavator is available with a 60-month term at 4.99% APR, with monthly payments of $4,720. Would you like to see more details about this model?"
+      },
+      {
+        sender: 'user',
+        content: "Yes, please. What about the Komatsu D65 Bulldozer?"
+      },
+      {
+        sender: 'agent',
+        content: "The Komatsu D65 Bulldozer is another excellent option. It's available with a 48-month term at 5.25% APR, with monthly payments of $4,175. This model is particularly well-suited for large-scale earth moving projects. Would you like to compare these two options side by side?"
+      }
+    ]
+  },
+  {
+    topic: 'Heavy Equipment Financing',
+    messages: [
+      {
+        sender: 'user',
+        content: "We need a mobile crane for our construction projects. What options do you have?"
+      },
+      {
+        sender: 'agent',
+        content: "We have the Liebherr LTM 1100 Mobile Crane available. It's a premium model with a 72-month financing term at 4.75% APR. The monthly payment would be $13,500. Would you like to see the specifications and financing details?"
+      },
+      {
+        sender: 'user',
+        content: "That's quite an investment. What about used equipment options?"
+      },
+      {
+        sender: 'agent',
+        content: "We do offer financing for used equipment as well, typically with terms of 36-48 months. The rates are slightly higher, but the monthly payments are more manageable. Would you like me to show you some used crane options?"
+      }
+    ]
+  },
+  {
+    topic: 'Material Handling Equipment',
+    messages: [
+      {
+        sender: 'user',
+        content: "We're looking to expand our fleet with some material handling equipment. What do you recommend?"
+      },
+      {
+        sender: 'agent',
+        content: "The Volvo L120 Wheel Loader is an excellent choice for material handling. It's available with a 60-month term at 5.15% APR, with monthly payments of $6,075. This model is known for its efficiency and durability. Would you like to see more details?"
+      },
+      {
+        sender: 'user',
+        content: "What about maintenance and service packages?"
+      },
+      {
+        sender: 'agent',
+        content: "We offer comprehensive maintenance packages that can be included in your financing. These typically cover regular maintenance, parts, and service calls. Would you like me to outline the available service packages?"
+      }
+    ]
+  }
+];
+
 // Generate a mock lead
 const generateMockLead = (id: number): Lead => {
   // Determine status based on distribution
@@ -193,22 +268,23 @@ const generateChatSession = (sessionId: string, messageCount: number): ChatMessa
   
   const baseTime = new Date(randomRecentDate());
   
-  for (let i = 0; i < messageCount; i++) {
-    const isUserMessage = i % 2 === 0;
+  // Select a random demo conversation template
+  const selectedConversation = demoConversations[Math.floor(Math.random() * demoConversations.length)];
+  
+  // Use the template messages
+  selectedConversation.messages.forEach((msg, index) => {
     const messageTime = new Date(baseTime);
-    messageTime.setMinutes(baseTime.getMinutes() + i * 2);
+    messageTime.setMinutes(baseTime.getMinutes() + index * 2);
     
     messages.push({
-      id: `msg-${sessionId}-${i}`,
-      sender: isUserMessage ? 'user' : 'agent',
-      agentType: isUserMessage ? undefined : selectedAgentType,
-      content: isUserMessage 
-        ? `User question ${i/2 + 1} about Firecat` 
-        : `Agent response to question ${i/2 + 1} about Firecat`,
+      id: `msg-${sessionId}-${index}`,
+      sender: msg.sender === 'user' ? 'user' : 'agent',
+      agentType: msg.sender === 'user' ? undefined : selectedAgentType,
+      content: msg.content,
       timestamp: messageTime.toISOString(),
       sessionId
     });
-  }
+  });
   
   return messages;
 };
