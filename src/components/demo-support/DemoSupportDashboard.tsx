@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Card from '../base/Card';
 import Button from '../base/Button';
 import { MessageSquare, HelpCircle, BookOpen, BarChart2, Clock, CheckCircle } from 'lucide-react';
+import EquipmentFinancing from './EquipmentFinancing';
+import { mockData } from '../../data/mockData';
 
 interface Conversation {
   id: string;
@@ -95,63 +97,58 @@ const DemoSupportDashboard: React.FC = () => {
 
       {activeTab === 'demo' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <Card>
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <MessageSquare className="w-5 h-5 text-blue-600" />
-                <h3 className="text-lg font-semibold">Active Conversations</h3>
-              </div>
-              <div className="space-y-4">
-                {conversations.map(conversation => (
-                  <div key={conversation.id} className="border rounded-lg p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-medium">{conversation.topic}</p>
-                        <p className="text-sm text-gray-500">
-                          Started: {new Date(conversation.startTime).toLocaleString()}
-                        </p>
-                      </div>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        conversation.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {conversation.status}
-                      </span>
-                    </div>
-                    <div className="mt-2">
-                      <div className="flex items-center gap-2">
-                        <BarChart2 className="w-4 h-4 text-gray-400" />
-                        <span className="text-sm text-gray-500">
-                          Sentiment: {(conversation.sentiment * 100).toFixed(0)}%
+          <div className="lg:col-span-2">
+            <Card>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <MessageSquare className="w-5 h-5 text-blue-600" />
+                  <h3 className="text-lg font-semibold">Active Conversations</h3>
+                </div>
+                <div className="space-y-4">
+                  {conversations.map(conversation => (
+                    <div key={conversation.id} className="border rounded-lg p-4">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-medium">{conversation.topic}</p>
+                          <p className="text-sm text-gray-500">
+                            Started: {new Date(conversation.startTime).toLocaleString()}
+                          </p>
+                        </div>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          conversation.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {conversation.status}
                         </span>
                       </div>
+                      <div className="mt-2">
+                        <div className="flex items-center gap-2">
+                          <BarChart2 className="w-4 h-4 text-gray-400" />
+                          <span className="text-sm text-gray-500">
+                            Sentiment: {(conversation.sentiment * 100).toFixed(0)}%
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Card>
-
-          <Card className="lg:col-span-2">
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="w-5 h-5 text-blue-600" />
-                <h3 className="text-lg font-semibold">Knowledge Base</h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-medium mb-2">FAQs</h4>
-                  <p className="text-sm text-gray-500">1,500 articles</p>
-                </div>
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-medium mb-2">Training Materials</h4>
-                  <p className="text-sm text-gray-500">50 guides</p>
+                  ))}
                 </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
+          
+          <div className="space-y-6">
+            <Card>
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <HelpCircle className="w-5 h-5 text-blue-600" />
+                  <h3 className="text-lg font-semibold">Quick Actions</h3>
+                </div>
+                {/* ... existing quick actions content ... */}
+              </div>
+            </Card>
+          </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="space-y-6">
           <Card>
             <div className="p-6">
               <div className="flex items-center gap-2 mb-4">
@@ -198,27 +195,11 @@ const DemoSupportDashboard: React.FC = () => {
               </div>
             </div>
           </Card>
-
-          <Card className="lg:col-span-2">
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="w-5 h-5 text-blue-600" />
-                <h3 className="text-lg font-semibold">SKU Knowledge Base</h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-medium mb-2">Total SKUs</h4>
-                  <p className="text-sm text-gray-500">15,000 items</p>
-                </div>
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-medium mb-2">Categories</h4>
-                  <p className="text-sm text-gray-500">25 categories</p>
-                </div>
-              </div>
-            </div>
-          </Card>
         </div>
       )}
+
+      {/* Add Equipment Financing section */}
+      <EquipmentFinancing products={mockData.products} />
     </div>
   );
 };

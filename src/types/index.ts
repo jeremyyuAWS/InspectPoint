@@ -60,6 +60,13 @@ export interface Product {
   description: string;
   category: string;
   compatibleWith: string[];
+  image?: string;
+  price?: number;
+  financing?: {
+    term: string;
+    rate: string;
+    monthlyPayment: number;
+  };
 }
 
 export interface ChatMessage {

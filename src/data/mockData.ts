@@ -41,6 +41,58 @@ const leadStatusDistribution = {
   lost: 0.03
 };
 
+// Construction equipment categories and images
+const constructionEquipment = [
+  {
+    id: 'excavator-1',
+    name: 'Caterpillar 320 Hydraulic Excavator',
+    category: 'Earth Moving',
+    image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60',
+    price: 250000,
+    financing: {
+      term: '60 months',
+      rate: '4.99%',
+      monthlyPayment: 4720
+    }
+  },
+  {
+    id: 'bulldozer-1',
+    name: 'Komatsu D65 Bulldozer',
+    category: 'Earth Moving',
+    image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60',
+    price: 180000,
+    financing: {
+      term: '48 months',
+      rate: '5.25%',
+      monthlyPayment: 4175
+    }
+  },
+  {
+    id: 'crane-1',
+    name: 'Liebherr LTM 1100 Mobile Crane',
+    category: 'Lifting',
+    image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60',
+    price: 850000,
+    financing: {
+      term: '72 months',
+      rate: '4.75%',
+      monthlyPayment: 13500
+    }
+  },
+  {
+    id: 'loader-1',
+    name: 'Volvo L120 Wheel Loader',
+    category: 'Material Handling',
+    image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=800&auto=format&fit=crop&q=60',
+    price: 320000,
+    financing: {
+      term: '60 months',
+      rate: '5.15%',
+      monthlyPayment: 6075
+    }
+  }
+];
+
 // Generate a mock lead
 const generateMockLead = (id: number): Lead => {
   // Determine status based on distribution
@@ -191,18 +243,31 @@ export const generateMockData = () => {
     .map((_, idx) => generateMockSupportTicket(idx + 1));
   
   // Generate products/SKUs
-  const products: Product[] = Array(30)
-    .fill(0)
-    .map((_, idx) => ({
-      id: `product-${idx + 1}`,
-      name: `Firecat ${['Detector', 'Panel', 'Sensor', 'Alarm', 'Controller'][Math.floor(Math.random() * 5)]} ${idx + 1}`,
-      sku: `FC-${Math.floor(1000 + Math.random() * 9000)}`,
-      description: `Product description for Firecat item ${idx + 1}`,
-      category: ['Hardware', 'Software', 'Service', 'Addon'][Math.floor(Math.random() * 4)],
-      compatibleWith: Array(Math.floor(Math.random() * 5))
-        .fill(0)
-        .map(() => `FC-${Math.floor(1000 + Math.random() * 9000)}`)
-    }));
+  const products: Product[] = [
+    ...constructionEquipment.map(equipment => ({
+      id: equipment.id,
+      name: equipment.name,
+      sku: `CE-${equipment.id}`,
+      description: `${equipment.name} - Professional grade ${equipment.category.toLowerCase()} equipment with flexible financing options.`,
+      category: equipment.category,
+      compatibleWith: [],
+      image: equipment.image,
+      price: equipment.price,
+      financing: equipment.financing
+    })),
+    ...Array(20)
+      .fill(0)
+      .map((_, idx) => ({
+        id: `product-${idx + 1}`,
+        name: `Firecat ${['Detector', 'Panel', 'Sensor', 'Alarm', 'Controller'][Math.floor(Math.random() * 5)]} ${idx + 1}`,
+        sku: `FC-${Math.floor(1000 + Math.random() * 9000)}`,
+        description: `Product description for Firecat item ${idx + 1}`,
+        category: ['Hardware', 'Software', 'Service', 'Addon'][Math.floor(Math.random() * 4)],
+        compatibleWith: Array(Math.floor(Math.random() * 5))
+          .fill(0)
+          .map(() => `FC-${Math.floor(1000 + Math.random() * 9000)}`)
+      }))
+  ];
   
   // Generate chat messages
   const chatSessions = Array(20)
