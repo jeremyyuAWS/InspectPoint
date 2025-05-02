@@ -93,80 +93,101 @@ const constructionEquipment = [
   }
 ];
 
-// Demo conversation templates
-const demoConversations = [
-  {
-    topic: 'Equipment Financing Overview',
-    messages: [
-      {
-        sender: 'user',
-        content: "I'm interested in financing options for construction equipment. Can you tell me more about what you offer?"
-      },
-      {
-        sender: 'agent',
-        content: "I'd be happy to help you explore our construction equipment financing options. We offer flexible terms and competitive rates for a wide range of equipment. What type of equipment are you looking to finance?"
-      },
-      {
-        sender: 'user',
-        content: "We're primarily interested in earth moving equipment, specifically excavators and bulldozers."
-      },
-      {
-        sender: 'agent',
-        content: "Great choice! We have excellent options for earth moving equipment. For example, our Caterpillar 320 Hydraulic Excavator is available with a 60-month term at 4.99% APR, with monthly payments of $4,720. Would you like to see more details about this model?"
-      },
-      {
-        sender: 'user',
-        content: "Yes, please. What about the Komatsu D65 Bulldozer?"
-      },
-      {
-        sender: 'agent',
-        content: "The Komatsu D65 Bulldozer is another excellent option. It's available with a 48-month term at 5.25% APR, with monthly payments of $4,175. This model is particularly well-suited for large-scale earth moving projects. Would you like to compare these two options side by side?"
-      }
-    ]
-  },
-  {
-    topic: 'Heavy Equipment Financing',
-    messages: [
-      {
-        sender: 'user',
-        content: "We need a mobile crane for our construction projects. What options do you have?"
-      },
-      {
-        sender: 'agent',
-        content: "We have the Liebherr LTM 1100 Mobile Crane available. It's a premium model with a 72-month financing term at 4.75% APR. The monthly payment would be $13,500. Would you like to see the specifications and financing details?"
-      },
-      {
-        sender: 'user',
-        content: "That's quite an investment. What about used equipment options?"
-      },
-      {
-        sender: 'agent',
-        content: "We do offer financing for used equipment as well, typically with terms of 36-48 months. The rates are slightly higher, but the monthly payments are more manageable. Would you like me to show you some used crane options?"
-      }
-    ]
-  },
-  {
-    topic: 'Material Handling Equipment',
-    messages: [
-      {
-        sender: 'user',
-        content: "We're looking to expand our fleet with some material handling equipment. What do you recommend?"
-      },
-      {
-        sender: 'agent',
-        content: "The Volvo L120 Wheel Loader is an excellent choice for material handling. It's available with a 60-month term at 5.15% APR, with monthly payments of $6,075. This model is known for its efficiency and durability. Would you like to see more details?"
-      },
-      {
-        sender: 'user',
-        content: "What about maintenance and service packages?"
-      },
-      {
-        sender: 'agent',
-        content: "We offer comprehensive maintenance packages that can be included in your financing. These typically cover regular maintenance, parts, and service calls. Would you like me to outline the available service packages?"
-      }
-    ]
-  }
-];
+// Role agent conversation templates
+const roleAgentConversations = {
+  demo: [
+    {
+      topic: 'Equipment Financing Overview',
+      messages: [
+        {
+          sender: 'user',
+          content: "I'm interested in financing options for construction equipment. Can you tell me more about what you offer?"
+        },
+        {
+          sender: 'agent',
+          content: "I'd be happy to help you explore our construction equipment financing options. We offer flexible terms and competitive rates for a wide range of equipment. What type of equipment are you looking to finance?"
+        },
+        {
+          sender: 'user',
+          content: "We're primarily interested in earth moving equipment, specifically excavators and bulldozers."
+        },
+        {
+          sender: 'agent',
+          content: "Great choice! We have excellent options for earth moving equipment. For example, our Caterpillar 320 Hydraulic Excavator is available with a 60-month term at 4.99% APR, with monthly payments of $4,720. Would you like to see more details about this model?"
+        }
+      ]
+    }
+  ],
+  onboarding: [
+    {
+      topic: 'New Customer Onboarding',
+      messages: [
+        {
+          sender: 'user',
+          content: "Hi, we just signed up for your equipment financing platform. What's the next step?"
+        },
+        {
+          sender: 'agent',
+          content: "Welcome! I'm here to help you get started. First, let's set up your company profile. This will help us provide personalized financing options. Would you like to start with that?"
+        },
+        {
+          sender: 'user',
+          content: "Yes, that sounds good. What information do you need?"
+        },
+        {
+          sender: 'agent',
+          content: "We'll need your company's legal name, business type, years in operation, and annual revenue. This helps us determine the best financing terms for your business. Shall we begin?"
+        }
+      ]
+    }
+  ],
+  support: [
+    {
+      topic: 'Technical Support',
+      messages: [
+        {
+          sender: 'user',
+          content: "I'm having trouble accessing my financing dashboard. The page keeps loading indefinitely."
+        },
+        {
+          sender: 'agent',
+          content: "I'm sorry to hear you're experiencing issues. Let's troubleshoot this step by step. First, could you tell me which browser you're using and if you've tried clearing your cache?"
+        },
+        {
+          sender: 'user',
+          content: "I'm using Chrome, and yes, I've cleared the cache. Still having the same issue."
+        },
+        {
+          sender: 'agent',
+          content: "Thank you for that information. Let's try a few more things. Could you check if you're able to access other pages on the platform? Also, are you seeing any specific error messages?"
+        }
+      ]
+    }
+  ],
+  sales: [
+    {
+      topic: 'Equipment Sales Inquiry',
+      messages: [
+        {
+          sender: 'user',
+          content: "We're looking to expand our fleet with some new equipment. What are your current promotions?"
+        },
+        {
+          sender: 'agent',
+          content: "We have several attractive promotions running right now. For new equipment purchases, we're offering 0% down payment options and reduced interest rates for qualified buyers. What type of equipment are you interested in?"
+        },
+        {
+          sender: 'user',
+          content: "We're specifically looking at excavators and loaders."
+        },
+        {
+          sender: 'agent',
+          content: "Perfect! For excavators, we have a special promotion on the Caterpillar 320 model with 0% down and 4.99% APR for 60 months. For loaders, the Volvo L120 is currently available with a $10,000 instant rebate. Would you like to see the detailed specifications for either of these models?"
+        }
+      ]
+    }
+  ]
+};
 
 // Generate a mock lead
 const generateMockLead = (id: number): Lead => {
@@ -268,8 +289,8 @@ const generateChatSession = (sessionId: string, messageCount: number): ChatMessa
   
   const baseTime = new Date(randomRecentDate());
   
-  // Select a random demo conversation template
-  const selectedConversation = demoConversations[Math.floor(Math.random() * demoConversations.length)];
+  // Select a random conversation template for the chosen agent type
+  const selectedConversation = roleAgentConversations[selectedAgentType][Math.floor(Math.random() * roleAgentConversations[selectedAgentType].length)];
   
   // Use the template messages
   selectedConversation.messages.forEach((msg, index) => {
